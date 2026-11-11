@@ -1,0 +1,38 @@
+{
+  "_default": {
+    "color": "#000000",
+    "weight": 2
+  },
+  "Prio A": {
+    "color": "#F54927",
+    "weight": 4
+  },
+  "Prio B": {
+    "color": "#FF9900",
+    "weight": 4
+  },
+  "Prio C": {
+    "color": "#FFFF00",
+    "weight": 3
+  },
+  "Våglängd 10G": {
+    "color": "#585DE9",
+    "weight": 10
+  },
+  "Modernisation": {
+    "color": "#F08928",
+    "weight": 6
+  },
+  "0-4 G": {
+    "color": "#ECF024",
+    "weight": 8
+  },
+  "4-7 G": {
+    "color": "#F2A145",
+    "weight": 8
+  },
+  "7->": {
+    "color": "#F23C1C",
+    "weight": 8
+  }
+}

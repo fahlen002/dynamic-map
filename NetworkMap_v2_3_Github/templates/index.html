@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Map Creator</title>
+    <style>
+        body { font-family:Arial,sans-serif; max-width:900px; margin:40px auto; padding:20px; background:#f5f5f5; color:#333; }
+        .container { background:#fff; padding:30px; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,.1); }
+        h1 { color:#2e7d32; margin-bottom:8px; }
+        h2 { color:#444; margin-top:28px; }
+        p, li { line-height:1.5; }
+        .features { background:#f8f8f8; padding:14px 18px; border-radius:5px; margin-top:18px; }
+        .section { margin-top:28px; padding-top:20px; border-top:1px solid #ddd; }
+        input[type=file] { margin:10px 0 15px; }
+        .button { display:inline-block; background:#2e7d32; color:#fff; border:0; border-radius:4px; padding:12px 24px; cursor:pointer; font-size:16px; text-decoration:none; }
+        .button:hover { background:#1b5e20; }
+        .button.secondary { background:#455a64; }
+        .button.secondary:hover { background:#263238; }
+        .error { margin-top:18px; padding:12px; background:#ffebee; border:1px solid #ef9a9a; color:#c62828; border-radius:4px; }
+        .footer { margin-top:28px; font-size:12px; color:#888; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Network Map Creator</h1>
+    <p>Create interactive point-to-point maps from Excel data.</p>
+
+    <h2>How It Works</h2>
+    <p>Upload an Excel file, map its columns, choose how markers, lines and filter layers should be styled, and generate an interactive HTML map.</p>
+
+    <div class="features">
+        <strong>Flexible by design</strong>
+        <ul>
+            <li>Use different Excel column names</li>
+            <li>Style markers and lines by category or project</li>
+            <li>Filter map layers by category or project</li>
+            <li>Manage colours and sizes without editing JSON files</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Upload Excel File</h2>
+        <form method="POST" action="{{ url_for('index') }}" enctype="multipart/form-data">
+            <input type="file" name="file" accept=".xlsx,.xls" required>
+            <br>
+            <button class="button" type="submit">Continue</button>
+        </form>
+        {% if error %}<div class="error">{{ error }}</div>{% endif %}
+    </div>
+
+    <div class="section">
+        <h2>Style Manager</h2>
+        <p>Add, edit or delete category and project styles using a colour picker.</p>
+        <a class="button secondary" href="{{ url_for('styles') }}">Manage Styles</a>
+    </div>
+
+    <div class="footer">NetworkMap_v2.3</div>
+</div>
+</body>
+</html>

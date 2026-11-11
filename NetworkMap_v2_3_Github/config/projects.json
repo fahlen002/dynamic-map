@@ -1,0 +1,38 @@
+{
+  "_default": {
+    "marker_color": "#000000",
+    "marker_size": 5
+  },
+  "Hos annan op": {
+    "marker_color": "#16A6D9",
+    "marker_size": 5
+  },
+  "Reservkraft ansluten": {
+    "marker_color": "#00B050",
+    "marker_size": 5
+  },
+  "Installeras 2026": {
+    "marker_color": "#92D050",
+    "marker_size": 5
+  },
+  "SA-pågår": {
+    "marker_color": "#F2C200",
+    "marker_size": 5
+  },
+  "Installeras 2027": {
+    "marker_color": "#FFFF00",
+    "marker_size": 5
+  },
+  "Utgår": {
+    "marker_color": "#FF0000",
+    "marker_size": 5
+  },
+  "C-band 2027": {
+    "marker_color": "#1565C0",
+    "marker_size": 7
+  },
+  "Nytt projekt": {
+    "marker_color": "#15C129",
+    "marker_size": 7
+  }
+}

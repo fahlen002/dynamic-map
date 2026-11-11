@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Map Creator - Column Mapping</title>
+    <style>
+        body { font-family:Arial,sans-serif; margin:30px; background:#f5f5f5; color:#333; }
+        .container { max-width:1000px; margin:auto; background:#fff; padding:30px; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,.1); }
+        h2 { color:#2e7d32; }
+        h3 { margin-top:0; color:#444; }
+        .info { background:#f8f8f8; padding:15px; border-radius:5px; margin-bottom:20px; }
+        .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:24px; }
+        .section { padding:18px; border:1px solid #ddd; border-radius:6px; background:#fcfcfc; }
+        label { display:block; margin-top:12px; margin-bottom:4px; font-weight:bold; }
+        select { box-sizing:border-box; width:100%; padding:8px; border:1px solid #bbb; border-radius:4px; background:white; }
+        .visualisation { margin-top:24px; }
+        button { margin-top:24px; padding:12px 25px; border:0; background:#2e7d32; color:#fff; border-radius:4px; cursor:pointer; font-size:16px; }
+        button:hover { background:#1b5e20; }
+        .error { margin-bottom:18px; padding:12px; background:#ffebee; border:1px solid #ef9a9a; color:#c62828; border-radius:4px; }
+        .hint { color:#666; font-size:13px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Map Column Mapping</h2>
+    <div class="info">
+        <strong>File:</strong> {{ filename }}
+        <p>Match the Excel columns to the map fields, then choose how the map should be visualised.</p>
+    </div>
+
+    {% if error %}<div class="error">{{ error }}</div>{% endif %}
+
+    <form method="POST" action="{{ url_for('generate_map') }}">
+        <input type="hidden" name="filename" value="{{ filename }}">
+
+        <div class="grid">
+            <div class="section">
+                <h3>Start Point</h3>
+                {% for field, label in [('start_name','Start Name'),('start_lat','Start Latitude'),('start_lon','Start Longitude')] %}
+                <label for="{{ field }}">{{ label }}</label>
+                <select id="{{ field }}" name="{{ field }}" required>
+                    {% for col in columns %}<option value="{{ col }}" {% if suggested.get(field) == col %}selected{% endif %}>{{ col }}</option>{% endfor %}
+                </select>
+                {% endfor %}
+            </div>
+
+            <div class="section">
+                <h3>End Point</h3>
+                {% for field, label in [('end_name','End Name'),('end_lat','End Latitude'),('end_lon','End Longitude')] %}
+                <label for="{{ field }}">{{ label }}</label>
+                <select id="{{ field }}" name="{{ field }}" required>
+                    {% for col in columns %}<option value="{{ col }}" {% if suggested.get(field) == col %}selected{% endif %}>{{ col }}</option>{% endfor %}
+                </select>
+                {% endfor %}
+            </div>
+
+            <div class="section">
+                <h3>Classification Fields</h3>
+                {% for field, label in [('category','Category Column'),('project','Project Column')] %}
+                <label for="{{ field }}">{{ label }}</label>
+                <select id="{{ field }}" name="{{ field }}" required>
+                    {% for col in columns %}<option value="{{ col }}" {% if suggested.get(field) == col %}selected{% endif %}>{{ col }}</option>{% endfor %}
+                </select>
+                {% endfor %}
+                <p class="hint">The values in these columns are read dynamically. Unknown values use the default style from the JSON files.</p>
+            </div>
+        </div>
+
+        <div class="section visualisation">
+            <h3>Visualisation Settings</h3>
+            <div class="grid">
+                <div>
+                    <label for="marker_source">Marker Colours From</label>
+                    <select id="marker_source" name="marker_source">
+                        <option value="project" selected>Project</option>
+                        <option value="category">Category</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="line_source">Line Colours From</label>
+                    <select id="line_source" name="line_source">
+                        <option value="category" selected>Category</option>
+                        <option value="project">Project</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="filter_source">Layer Filtering</label>
+                    <select id="filter_source" name="filter_source">
+                        <option value="category" selected>Category</option>
+                        <option value="project">Project</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit">Generate Map</button>
+    </form>
+</div>
+</body>
+</html>
